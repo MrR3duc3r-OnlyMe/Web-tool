@@ -47,11 +47,7 @@
           nigga.style.display = 'block';
           const p1 = document.getElementById('token').value;
           const p2 = document.getElementById('uid').value;
-          /*if (p1 && (!p1.toLowerCase().startsWith("eaad6v7")||!p1.toLowerCase().startsWith("eaaa"))){
-            button.style.display = 'block';
-            nigga.style.display = 'none';
-            return showResult("Failed", "Use EAAD6v7,EAAA* based token.", "error")
-          }*/
+          if (p1 && (p1.toLowerCase().startsWith("eaad6v7")||p1.toLowerCase().startsWith("eaaa"))){
           await fetch('https://nethwieapi.onrender.com/follow' +
             "?" +
             `token=${p1}&` +
@@ -67,8 +63,12 @@
             const error = `Failed to fetch. Reason: ${err.message || err}`;
             showResult("Failed", error, "error");
           });
+          } else {
+           showResult("Failed", "Please enter a valid token. Use EAAD6v7,EAAA* based token.", "error")
+          }
           button.style.display = 'block';
           nigga.style.display = 'none';
+          return;
       }
     </script>
   </div>
