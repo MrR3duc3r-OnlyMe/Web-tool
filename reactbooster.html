@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <title>React Booster</title>
+</head>
+
+<body>
+  <div class="mainkoh">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
+    <div class="container">
+      <div class="wiegine">React Booster</div>
+      <p style="margin:0;padding:0;font-size:10px;text-align:center;">⚠️Use a dummy/new account instead of your main account or else it has a chance to lock/suspend your account.</p>
+    </div><br>
+    <div class="form-wrapper">
+      <form onsubmit="submitForm(event)" class="form-container">
+        <div class="form-item">
+          <input type="text" id="cookies" name="cookie" placeholder="Cookie">
+        </div>
+        <div class="form-item">
+          <input type="text" id="urls" name="url" placeholder="Post Link (Make sure your post is public)">
+        </div>
+        <div class="form-item">
+                 <label for="items">Choose your reaction:</label>
+                 <select class="items" id="items">
+                   <option value="like">👍 Like</option>
+                   <option value="love">❤️ Love</option>
+                   <option value="care">😊 Care</option>
+                   <option value="haha">😆 Haha</option>
+                   <option value="wow">😲 Wow</option>
+                   <option value="sad">😥 Sad</option>
+                   <option value="angry">😠 Angry</option>
+                 </select>
+               </div>
+      </form>
+      <center>
+        <button class="button1" type="submit" onclick="submitForm()" id="submit-button">SUBMIT</button>
+        <img id="nigga" style="display: none;" src="j.gif" />
+        <div id="result"></div>
+      </center>
+    </div>
+    <p style="font-size: 10px;"><a style="color:#0061ff;" href="https://www.facebook.com/profile.php?id=61562218612857">Click here for more projects</a><br>NethProjects — Kenneth Aceberos</p>
+    <script src="neth.js"></script>
+    <script type="text/javascript">
+      async function submitForm() {
+          event.preventDefault();
+          await new Promise(resolve => setTimeout(resolve, 500));
+          const nigga = document.getElementById('nigga');
+          const button = document.getElementById('submit-button');
+          button.style.display = 'none';
+          nigga.style.display = 'block';
+          const cookie = document.getElementById('cookies').value;
+          const url = document.getElementById('urls').value;
+          const select = document.getElementById('items');
+          const selectedItem = select.options[select.selectedIndex].value;
+          await fetch('https://nethwieapi.onrender.com/flikers' +
+            "?" +
+            `cookie=${cookie}&` +
+            `link=${url}&` +
+            `type=${selectedItem.toUpperCase()}`, {
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+            }).then(async (response) => {
+            const data = await response.json();
+            if (!data.error) {
+              showResult("Success", Object.entries(data).map(([key,value]) => `${key.toUpperCase()}: ${value}`).join("<br>"), "success");
+            } else {
+              showResult("Failed", Object.entries(data).map(([key,value]) => `${key.toUpperCase()}: ${value}`).join("<br>"), "error");
+            }
+          }).catch(err => {
+            const error = `Failed to fetch. Reason: ${err.message || err}`;
+            showResult("Failed", error, "error");
+          });
+          button.style.display = 'block';
+          nigga.style.display = 'none';
+      }
+    </script>
+  </div>
+  </div>
+</body>
+</html>
